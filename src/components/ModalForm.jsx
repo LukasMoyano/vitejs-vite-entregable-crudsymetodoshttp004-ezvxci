@@ -21,9 +21,9 @@ const ModalForm = ({ isShowModal, changeShowModal, createUsers }) => {
     >
       <form
         onSubmit={handleSubmit(submit)}
-        className="bg-white w-[280px] p-4 grid gap-6 relative"
+        className="bg-white w-[280px] p-3 grid gap-3 relative"
       >
-        <h3 className="font-bold text-3xl">Nuevo usuario</h3>
+        <h3 className="font-bold text-2xl">Nuevo usuario</h3>
 
         {/* input nombre */}
         <div className="grid gap-2">
