@@ -21,13 +21,8 @@ const User = ({ user, deleteUser, changeShowModal, editUser }) => {
     // Mostrar el formulario de edición
     changeShowModal();
 
+    const updatedData = {};
 
-    const updatedData = {
-      // Aquí debes proporcionar los campos actualizados del usuario
-      // Por ejemplo: first_name: 'Nuevo nombre', last_name: 'Nuevo apellido', email: 'Nuevo correo', etc.
-    };
-
-    // Llamar a la función para editar el usuario
     editUser(user.id, updatedData);
   };
 
