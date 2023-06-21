@@ -1,11 +1,14 @@
-const UserList = ({users}) => {
+import React from 'react';
+import User from './User';
+
+const UserList = ({ users }) => {
   return (
-  <section>
+    <section>
+      {users.map((user, index) => (
+        <User key={index} user={user} />
+      ))}
+    </section>
+  );
+};
 
-    {
-      users.map((user) => <User /> )
-    }    
-
-  </section>;
-)};
 export default UserList;
