@@ -1,7 +1,7 @@
 import { format, differenceInYears, getDayOfYear } from 'date-fns';
 import es from 'date-fns/locale/es';
 
-const User = ({ user, deleteUser, handleEdit }) => {
+const User = ({ user, deleteUser, changeShowModal, editUser }) => {
   // Extraer información del usuario
   const { birthday } = user;
   const parsedBirthday = new Date(birthday);
@@ -11,10 +11,24 @@ const User = ({ user, deleteUser, handleEdit }) => {
   const age = differenceInYears(new Date(), parsedBirthday);
   const birthdayDayOfYear = getDayOfYear(parsedBirthday);
 
-  // Enviar los cambios al componente padre para editar el usuario
-  const handleEditSubmit = () => {
-    handleEdit(editedUser);
-    setIsEditing(false);
+  // Función para manejar el evento de eliminar el usuario
+  const handleClickDelete = () => {
+    deleteUser(user.id);
+  };
+
+  // Función para manejar el evento de editar el formulario
+  const handleClickUpdate = () => {
+    // Mostrar el formulario de edición
+    changeShowModal();
+
+
+    const updatedData = {
+      // Aquí debes proporcionar los campos actualizados del usuario
+      // Por ejemplo: first_name: 'Nuevo nombre', last_name: 'Nuevo apellido', email: 'Nuevo correo', etc.
+    };
+
+    // Llamar a la función para editar el usuario
+    editUser(user.id, updatedData);
   };
 
   return (
@@ -24,21 +38,17 @@ const User = ({ user, deleteUser, handleEdit }) => {
         {user.first_name} {user.last_name}
       </h4>
       <div>
-        {/* Mostrar edad del usuario */}
         <h5>Edad: {age} años</h5>
-        {/* Mostara la edad del usuario llevada a al mes y dia del años ne que le coinsida el nacimiento */}
-        <h5>Cumpleaños: {formattedBirthday}</h5>
+        <h5 className="bx bx-gift">Cumpleaños: {formattedBirthday}</h5>
+        <h5>Enviale Una Targeta Postal</h5>
+        <span>{user.email}</span>
       </div>
-
       <div>
-        {/* Botón para eliminar el usuario */}
-        <button onClick={() => deleteUser(user.id)}>
-          <i className="bx bx-trash"></i>
+        <button onClick={handleClickUpdate}>
+          <i className="bx bxs-edit"></i>Editar Info
         </button>
-
-        {/* Botón para activar el modo de edición */}
         <button onClick={handleClickDelete}>
-          <i className="bx bxs-edit"></i>
+          <i className="bx bx-trash"></i>Borrar
         </button>
       </div>
     </article>

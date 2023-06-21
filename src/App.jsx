@@ -33,17 +33,15 @@ function App() {
   };
 
   const deleteUser = (id) => {
-    const url = BASE_URL + '/users/${id}'
+    const url = BASE_URL + '/users/' + id;
 
     axios
-    .delete(url)
-    .then(() => getAllUsers())
-    .catch((err) => console.log(err))
+      .delete(url)
+      .then(() => getAllUsers())
+      .catch((err) => console.log(err));
+  };
 
-
-  }
-
-  const createUsers = (data, reset) => {
+  const createUser = (data, reset) => {
     const url = BASE_URL + '/users/';
 
     axios
@@ -56,9 +54,13 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const resetModalForm = (reset) => {
-    setIsShowModal(false);
-    reset(DEFAULT_VALUES);
+  const editUser = (id, updatedData) => {
+    const url = BASE_URL + '/users/' + id;
+
+    axios
+      .put(url, updatedData)
+      .then(() => getAllUsers())
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -72,9 +74,15 @@ function App() {
       <ModalForm
         changeShowModal={changeShowModal}
         isShowModal={isShowModal}
-        createUsers={createUsers}
+        createUser={createUser}
       />
-      <UserList users={users} deleteUser={deleteUser}/>
+
+      <UserList
+        users={users}
+        deleteUser={deleteUser}
+        changeShowModal={changeShowModal}
+        editUser={editUser}
+      />
     </main>
   );
 }
