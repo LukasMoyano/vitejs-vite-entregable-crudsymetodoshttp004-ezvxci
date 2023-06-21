@@ -1,16 +1,18 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const ModalForm = ({ isShowModal, changeShowModal, createUsers }) => {
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
+  const submit = (data) => {
     if (!data.birthday) data.birthday = null;
-    createUsers(data);
+    createUsers(data, reset);
   };
 
   const handleCloseModal = () => {
     changeShowModal();
   };
+
   return (
     <section
       className={`fixed top-0 left-0 right-0 h-screen bg-black bg-opacity-40 grid place-content-center ${
@@ -18,77 +20,77 @@ const ModalForm = ({ isShowModal, changeShowModal, createUsers }) => {
       } transition-opacity`}
     >
       <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white w-[280px] p-4 grid gap-4 relative"
+        onSubmit={handleSubmit(submit)}
+        className="bg-white w-[280px] p-4 grid gap-6 relative"
       >
-        <h3 className="text-2xl font-bold text-center">Nuevo Usuario</h3>
+        <h3 className="font-bold text-3xl">Nuevo usuario</h3>
 
         {/* input nombre */}
-        <div className="grid  gap-2">
+        <div className="grid gap-2">
           <label className="font-bold text-sm" htmlFor="">
             Nombre
           </label>
           <input
-            className="bg-gray-200"
+            className="bg-gray-300"
             type="text"
             {...register('first_name')}
           />
         </div>
 
         {/* input apellidos */}
-        <div className="grid  gap-2">
+        <div className="grid gap-2">
           <label className="font-bold text-sm" htmlFor="">
             Apellidos
           </label>
           <input
-            className="bg-gray-200"
+            className="bg-gray-300"
             type="text"
             {...register('last_name')}
           />
         </div>
 
         {/* input correo */}
-        <div className="grid  gap-2">
+        <div className="grid gap-2">
           <label className="font-bold text-sm" htmlFor="">
             E-mail
           </label>
-          <input className="bg-gray-200" type="email" {...register('email')} />
+          <input className="bg-gray-300" type="email" {...register('email')} />
         </div>
 
         {/* input contraseña */}
-        <div className="grid  gap-2">
+        <div className="grid gap-2">
           <label className="font-bold text-sm" htmlFor="">
             Contraseña
           </label>
           <input
-            className="bg-gray-200"
+            className="bg-gray-300"
             type="password"
             {...register('password')}
           />
         </div>
 
         {/* input fecha de nacimiento */}
-        <div className="grid  gap-2">
+        <div className="grid gap-2">
           <label className="font-bold text-sm" htmlFor="">
             Fecha de Nacimiento
           </label>
           <input
-            className="bg-gray-200"
+            className="bg-gray-300"
             type="date"
             {...register('birthday')}
           />
         </div>
 
         <button
+          type="button"
           onClick={handleCloseModal}
-          className="absolute top-2 right-2 text-2xl"
+          className="absolute top-2 right-2 text-2xl hover:text-secondary"
         >
           <i className="bx bx-x"></i>
         </button>
 
         <button
-          onClick={handleSubmit(onSubmit)}
-          type="button"
+          type="submit"
           className="btn-primary p-2 px-4 rounded hover:text-secondary"
         >
           Agregar nuevo usuario

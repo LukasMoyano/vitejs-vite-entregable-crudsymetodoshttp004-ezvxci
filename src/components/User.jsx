@@ -1,13 +1,9 @@
-import React from 'react';
-
 const User = ({ user }) => {
   return (
     <div>
-      <h3>
-        {user.first_name} {user.last_name}
-      </h3>
-      <p>Email: {user.email}</p>
-      {/* Mostrar otros datos del usuario */}
+      <p>Nombre: {user.first_name}</p>
+      <p>Apellidos: {user.last_name}</p>
+      {/* Mostrar otros detalles del usuario */}
     </div>
   );
 };

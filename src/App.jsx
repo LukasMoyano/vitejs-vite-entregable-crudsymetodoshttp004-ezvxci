@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import ModalForm from './components/ModalForm';
 import axios from 'axios';
+import UserList from './components/UserList';
 
 const BASE_URL = 'https://users-crud.academlo.tech';
 
@@ -27,7 +28,7 @@ function App() {
 
     axios
       .get(url)
-      .then(({ data }) => setUsers({ data }))
+      .then(({ data }) => setUsers(data))
       .catch((err) => console.log(err));
   };
 
@@ -36,9 +37,10 @@ function App() {
 
     axios
       .post(url, data)
-      .then(() => {
-        getAllUsers();
-        resetModalForm(reset);
+      .then(({ data }) => {
+        setUsers([...users, data]);
+        reset(DEFAULT_VALUES);
+        setIsShowModal(false);
       })
       .catch((err) => console.log(err));
   };
@@ -54,14 +56,13 @@ function App() {
 
   return (
     <main>
-      <Header handleClickShowModal={changeShowModal} />
-      {isShowModal && (
-        <ModalForm
-          isShowModal={isShowModal}
-          changeShowModal={changeShowModal}
-          createUsers={createUsers}
-        />
-      )}
+      <Header changeShowModal={changeShowModal} />
+
+      <ModalForm
+        changeShowModal={changeShowModal}
+        isShowModal={isShowModal}
+        createUsers={createUsers}
+      />
       <UserList users={users} />
     </main>
   );
