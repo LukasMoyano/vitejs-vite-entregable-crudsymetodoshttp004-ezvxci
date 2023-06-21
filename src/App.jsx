@@ -32,6 +32,17 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const deleteUser = (id) => {
+    const url = BASE_URL + '/users/${id}'
+
+    axios
+    .delete(url)
+    .then(() => getAllUsers())
+    .catch((err) => console.log(err))
+
+
+  }
+
   const createUsers = (data, reset) => {
     const url = BASE_URL + '/users/';
 
@@ -63,7 +74,7 @@ function App() {
         isShowModal={isShowModal}
         createUsers={createUsers}
       />
-      <UserList users={users} />
+      <UserList users={users} deleteUser={deleteUser}/>
     </main>
   );
 }
