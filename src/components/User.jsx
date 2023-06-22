@@ -1,7 +1,13 @@
 import { format, differenceInYears, getDayOfYear } from 'date-fns';
 import es from 'date-fns/locale/es';
 
-const User = ({ user, deleteUser, changeShowModal, editUser }) => {
+const User = ({
+  user,
+  deleteUser,
+  changeShowModal,
+  editUser,
+  setIsUserToUpdate,
+}) => {
   // Extraer información del usuario
   const { birthday } = user;
   const parsedBirthday = new Date(birthday);
@@ -18,32 +24,36 @@ const User = ({ user, deleteUser, changeShowModal, editUser }) => {
 
   // Función para manejar el evento de editar el formulario
   const handleClickUpdate = () => {
-    // Mostrar el formulario de edición
     changeShowModal();
-
-    const updatedData = {};
-
-    editUser(user.id, updatedData);
+    setIsUserToUpdate(user);
   };
 
   return (
-    <article>
+    <article className="bg-white p-4 rounded-md shadow-md">
       {/* Mostrar nombre y apellido del usuario */}
-      <h4>
+      <h4 className="font-bold text-xl mb-2">
         {user.first_name} {user.last_name}
       </h4>
       <div>
-        <h5>Edad: {age} años</h5>
-        <h5 className="bx bx-gift">Cumpleaños: {formattedBirthday}</h5>
-        <h5>Enviale Una Targeta Postal</h5>
-        <span>{user.email}</span>
+        <h5 className="text-gray-600">Edad: {age} años</h5>
+        <h5 className="text-gray-600">
+          <i className="bx bx-gift"></i> Cumpleaños: {formattedBirthday}
+        </h5>
+        <h5 className="text-gray-600">Envíale una Tarjeta Postal</h5>
+        <span className="text-gray-600">{user.email}</span>
       </div>
-      <div>
-        <button onClick={handleClickUpdate}>
-          <i className="bx bxs-edit"></i>Editar Info
+      <div className="mt-4">
+        <button
+          onClick={handleClickUpdate}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-2"
+        >
+          <i className="bx bxs-edit"></i> Editar Info
         </button>
-        <button onClick={handleClickDelete}>
-          <i className="bx bx-trash"></i>Borrar
+        <button
+          onClick={handleClickDelete}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+        >
+          <i className="bx bx-trash"></i> Borrar
         </button>
       </div>
     </article>

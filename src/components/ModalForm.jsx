@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 const ModalForm = ({
@@ -6,17 +6,28 @@ const ModalForm = ({
   changeShowModal,
   createUser,
   isUserToUpdate,
+  updateUser,
 }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const submit = (data) => {
     if (!data.birthday) data.birthday = null;
-    createUser(data, reset);
+    if (isUserToUpdate) {
+      updateUser(data);
+    } else {
+      createUser(data, reset);
+    }
   };
 
   const handleCloseModal = () => {
     changeShowModal();
   };
+
+  useEffect(() => {
+    if (isUserToUpdate) {
+      reset(isUserToUpdate);
+    }
+  }, [isUserToUpdate]);
 
   return (
     <section
@@ -26,62 +37,73 @@ const ModalForm = ({
     >
       <form
         onSubmit={handleSubmit(submit)}
-        className="bg-white w-[280px] p-3 grid gap-3 relative"
+        className="bg-white w-full max-w-sm p-6 rounded-md mx-auto relative"
       >
-        <h3 className="font-bold text-2xl">{isUserToUpdate ? "Editar Usuario" : "Nuevo usuario"}</h3>
+        <h3 className="font-bold text-2xl mb-6">
+          {isUserToUpdate ? 'Editar Usuario' : 'Nuevo usuario'}
+        </h3>
 
-        {/* input nombre */}
-        <div className="grid gap-2">
-          <label className="font-bold text-sm" htmlFor="">
+        {/* Input nombre */}
+        <div className="mb-4">
+          <label className="font-bold text-sm" htmlFor="first_name">
             Nombre
           </label>
           <input
-            className="bg-gray-300"
+            className="bg-gray-200 rounded-md p-2 w-full"
             type="text"
+            id="first_name"
             {...register('first_name')}
           />
         </div>
 
-        {/* input apellidos */}
-        <div className="grid gap-2">
-          <label className="font-bold text-sm" htmlFor="">
+        {/* Input apellidos */}
+        <div className="mb-4">
+          <label className="font-bold text-sm" htmlFor="last_name">
             Apellidos
           </label>
           <input
-            className="bg-gray-300"
+            className="bg-gray-200 rounded-md p-2 w-full"
             type="text"
+            id="last_name"
             {...register('last_name')}
           />
         </div>
 
-        {/* input correo */}
-        <div className="grid gap-2">
-          <label className="font-bold text-sm" htmlFor="">
+        {/* Input correo */}
+        <div className="mb-4">
+          <label className="font-bold text-sm" htmlFor="email">
             E-mail
           </label>
-          <input className="bg-gray-300" type="email" {...register('email')} />
+          <input
+            className="bg-gray-200 rounded-md p-2 w-full"
+            type="email"
+            id="email"
+            {...register('email')}
+          />
         </div>
 
-        {/* input contraseña */}
-        <div className="grid gap-2">
-          <label className="font-bold text-sm" htmlFor="">
+        {/* Input contraseña */}
+        <div className="mb-4">
+          <label className="font-bold text-sm" htmlFor="password">
             Contraseña
           </label>
           <input
-            className="bg-gray-300"
+            className="bg-gray-200 rounded-md p-2 w-full"
             type="password"
+            id="password"
             {...register('password')}
           />
         </div>
 
-        {/* input fecha de nacimiento */}
-        <div className="grid gap-2">
-          <label className="font-bold text-sm" htmlFor="">
+        {/* Input fecha de nacimiento */}
+        <div className="mb-4">
+          <label className="font-bold text-sm" htmlFor="birthday">
             Fecha de Nacimiento
           </label>
           <input
-            className="bg-gray-300"
+            className="bg-gray-200 rounded-md p-2 w-full"
             type="date"
+            id="birthday"
             {...register('birthday')}
           />
         </div>
@@ -96,9 +118,9 @@ const ModalForm = ({
 
         <button
           type="submit"
-          className="btn-primary p-2 px-4 rounded hover:text-secondary"
+          className="bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary"
         >
-          {isUserToUpdate ? "Guiardar cambios" : "Agregar nuevo usuario"}
+          {isUserToUpdate ? 'Guardar cambios' : 'Agregar nuevo usuario'}
         </button>
       </form>
     </section>

@@ -16,7 +16,7 @@ const DEFAULT_VALUES = {
 };
 
 function App() {
-  const [isUserToUpdate, setisUserToUpdate] = useState(null)
+  const [isUserToUpdate, setIsUserToUpdate] = useState(null);
   const [isShowModal, setIsShowModal] = useState(false);
   const [users, setUsers] = useState([]);
 
@@ -25,7 +25,7 @@ function App() {
   };
 
   const getAllUsers = () => {
-    const url = BASE_URL + '/users/';
+    const url = `${BASE_URL}/users/`;
 
     axios
       .get(url)
@@ -34,7 +34,7 @@ function App() {
   };
 
   const deleteUser = (id) => {
-    const url = BASE_URL + '/users/' + id;
+    const url = `${BASE_URL}/users/${id}`;
 
     axios
       .delete(url)
@@ -42,8 +42,26 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const updateUser = (data) => {
+    const url = `${BASE_URL}/users/${isUserToUpdate.id}/`;
+
+    axios
+      .patch(url, data)
+      .then(() => getAllUsers())
+      .catch((err) => console.log(err));
+  };
+
+  const resetModalForm = (reset) => {
+    setIsShowModal(false);
+    reset(DEFAULT_VALUES);
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   const createUser = (data, reset) => {
-    const url = BASE_URL + '/users/';
+    const url = `${BASE_URL}/users/`;
 
     axios
       .post(url, data)
@@ -56,7 +74,7 @@ function App() {
   };
 
   const editUser = (id, updatedData) => {
-    const url = BASE_URL + '/users/' + id;
+    const url = `${BASE_URL}/users/${id}`;
 
     axios
       .put(url, updatedData)
@@ -77,12 +95,14 @@ function App() {
         isShowModal={isShowModal}
         createUser={createUser}
         isUserToUpdate={isUserToUpdate}
+        updateUser={updateUser}
       />
 
       <UserList
         users={users}
         deleteUser={deleteUser}
         changeShowModal={changeShowModal}
+        setIsUserToUpdate={setIsUserToUpdate}
         editUser={editUser}
       />
     </main>
