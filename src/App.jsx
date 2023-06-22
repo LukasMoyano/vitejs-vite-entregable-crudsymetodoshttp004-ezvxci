@@ -16,6 +16,7 @@ const DEFAULT_VALUES = {
 };
 
 function App() {
+  const [isUserToUpdate, setisUserToUpdate] = useState(null)
   const [isShowModal, setIsShowModal] = useState(false);
   const [users, setUsers] = useState([]);
 
@@ -75,6 +76,7 @@ function App() {
         changeShowModal={changeShowModal}
         isShowModal={isShowModal}
         createUser={createUser}
+        isUserToUpdate={isUserToUpdate}
       />
 
       <UserList
