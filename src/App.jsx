@@ -22,6 +22,7 @@ function App() {
 
   const changeShowModal = () => {
     setIsShowModal(!isShowModal);
+    setIsUserToUpdate(null); // Reset isUserToUpdate when opening the modal
   };
 
   const getAllUsers = () => {
@@ -47,7 +48,10 @@ function App() {
 
     axios
       .patch(url, data)
-      .then(() => getAllUsers())
+      .then(() => {
+        getAllUsers();
+        changeShowModal(); // Close the modal after updating the user
+      })
       .catch((err) => console.log(err));
   };
 
@@ -78,13 +82,12 @@ function App() {
 
     axios
       .put(url, updatedData)
-      .then(() => getAllUsers())
+      .then(() => {
+        getAllUsers();
+        changeShowModal(); // Close the modal after updating the user
+      })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    getAllUsers();
-  }, []);
 
   return (
     <main>

@@ -1,4 +1,4 @@
-import { format, differenceInYears, getDayOfYear } from 'date-fns';
+import { format, differenceInYears, getDayOfYear, parseISO } from 'date-fns';
 import es from 'date-fns/locale/es';
 
 const User = ({
@@ -10,7 +10,7 @@ const User = ({
 }) => {
   // Extraer información del usuario
   const { birthday } = user;
-  const parsedBirthday = new Date(birthday);
+  const parsedBirthday = parseISO(birthday); // Parsear la fecha en formato ISO 8601
   const formattedBirthday = format(parsedBirthday, "EEEE d 'de' MMMM", {
     locale: es,
   });

@@ -15,7 +15,7 @@ const Header = ({ changeShowModal }) => {
     >
       <h1 className="text-2xl font-bold">Lista de Participantes</h1>
       <button onClick={handleClick} className="bg-primary text-white p-2">
-        <i className="bx bx-plus"></i>Inscribir Nuevo Participante
+        <i className="bx bx-plus"></i> Inscribir Nuevo Participante
       </button>
     </header>
   );
